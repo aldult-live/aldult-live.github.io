@@ -1,0 +1,32 @@
+name: Deploy Hugo Site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # 监听 main 分支的 push 事件
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚀 Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true  # 确保 FixIt 主题作为子模块被拉取
+          fetch-depth: 0    # 获取完整的 Git 历史
+
+      - name: 🔧 Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "latest"
+
+      - name: 🔨 Build Site
+        run: hugo --minify  # 生成静态文件到 public/
+
+      - name: 📤 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public  # Hugo 生成的静态站点目录
+          publish_branch: gh-pages  # 部署到 gh-pages 分支
