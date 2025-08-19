@@ -97,4 +97,4 @@ Disallow: /
 User-agent: ClaudeBot
 Disallow: /
 
-Sitemap: https://aldult-live.github.io/sitemap.xml
+Sitemap: https://seo-09598d.gitlab.io/sitemap.xml
